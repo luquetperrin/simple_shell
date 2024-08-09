@@ -6,6 +6,9 @@
 
 #define MAX_ARGS 100
 
+/* Function prototypes */
+void handle_command(char *line);
+
 /**
  * main - Entry point for the shell
  *
