@@ -7,7 +7,7 @@
  */
 void greet(void)
 {
-	print("Hello, world!\n");
+	printf("Hello, world!\n");
 }
 
 /**
