@@ -4,51 +4,58 @@
 #include <sys/wait.h>
 #include <string.h>
 
+/**
+ * main - Entry point of the shell
+ *
+ * Return: Always 0 (Success)
+ */
 int main(void)
 {
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t read;
-    char *argv[2];
-    pid_t pid;
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t read;
+	char *argv[2];
+	pid_t pid;
 
-    while (1)
-    {
-        printf("#cisfun$ ");
-        read = getline(&line, &len, stdin);
+	while (1)
+	{
+		printf("#cisfun$ ");
 
-        if (read == -1)
-        {
-            printf("\n");
-            break;
-        }
+		read = getline(&line, &len, stdin);
 
-        line[strcspn(line, "\n")] = 0;
+		if (read == -1)
+		{
+			printf("\n");
+			break;
+		}
 
-        argv[0] = line;
-        argv[1] = NULL;
+		line[strcspn(line, "\n")] = 0;
 
-        pid = fork();
-        if (pid == -1)
-        {
-            perror("fork");
-            continue;
-        }
+		argv[0] = line;
+		argv[1] = NULL;
 
-        if (pid == 0)
-        {
-            if (execve(argv[0], argv, NULL) == -1)
-            {
-                perror("./shell");
-            }
-            exit(EXIT_FAILURE);
-        }
-        else
-        {
-            wait(NULL);
-        }
-    }
+		pid = fork();
 
-    free(line);
-    return 0;
+		if (pid == -1)
+		{
+			perror("fork");
+			continue;
+		}
+
+		if (pid == 0)
+		{
+			if (execve(argv[0], argv, NULL) == -1)
+			{
+				perror("./shell");
+			}
+			exit(EXIT_FAILURE);
+		}
+		else
+		{
+			wait(NULL);
+		}
+	}
+
+	free(line);
+	return (0);
 }
